@@ -197,8 +197,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  setTimer(0,10);
+  int c=10;
+  setTimer(0,c);
+  setTimer(1,12*c);
+  setTimer(2,144*c);
   int s=0;
   int m=0;
   int h=0;
@@ -207,28 +209,31 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	  if (isTimerExpired(0)){
-		  setTimer(0,10);
+		  setTimer(0,c);
+
 		  if(m!=s && h!=s){
 		  clearNumberOnClock(s);
 		  }
-		  s++;
-
-		  if(s==12){
+		  s=(s+1)%12;
+		  setNumberOnClock(s);
+		  if(isTimerExpired(1)){
+			  setTimer(1,12*c);
+			  if(s!=m && m!=h){
 			  clearNumberOnClock(m);
-			  m++;
-			  if(m==12){
-			  		clearNumberOnClock(h);
-			  		h++;
-			  		if(h==12) h=0;
-			  		setNumberOnClock(h);
-			  		m==0;
-
 			  }
+			  m=(m+1)%12;
 			  setNumberOnClock(m);
-			  s=0;
+			  if(isTimerExpired(2)){
+				  	 setTimer(2,144*c);
+				  	if(h!=m && h!=s){
+			  		clearNumberOnClock(h);
+				  	}
+			  		h=(h+1)%12;
+			  		setNumberOnClock(h);
+			  }
+
 
 		  }
-		  setNumberOnClock(s);
 
 	  }
 

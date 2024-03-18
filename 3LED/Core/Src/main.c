@@ -91,31 +91,34 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT (& htim2 );
   /* USER CODE END 2 */
-  int counter=0;
-  setTimer(0,100);
+  setTimer(0,500);
+  setTimer(1,700);
+  setTimer(2,1000);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(GPIOA, RED_LED_Pin, GPIO_PIN_RESET);
   while (1)
   {
     /* USER CODE END WHILE */
-	  if (isTimerExpired(0)){
-		  counter++;
-		  setTimer(0,100);
-		  	if(counter<=5){
-		  		HAL_GPIO_WritePin(GPIOA, RED_LED_Pin, GPIO_PIN_RESET);
-		  		HAL_GPIO_WritePin(GPIOA, YELLOW_LED_Pin|GREEN_LED_Pin, GPIO_PIN_SET);
-		  	}
-		  	else if((counter>5) && (counter<=7)){
-		  		HAL_GPIO_WritePin(GPIOA, YELLOW_LED_Pin, GPIO_PIN_RESET);
-		  		HAL_GPIO_WritePin(GPIOA, RED_LED_Pin|GREEN_LED_Pin, GPIO_PIN_SET);
-		  	}
-		  	else if(counter>7 && counter<10){
-		  		HAL_GPIO_WritePin(GPIOA, GREEN_LED_Pin, GPIO_PIN_RESET);
-		  		HAL_GPIO_WritePin(GPIOA, YELLOW_LED_Pin|RED_LED_Pin, GPIO_PIN_SET);
-		  	}
-		  	if(counter==10)
-		  		counter=0;
+	  if (isTimerExpired(2)){
+
+		  HAL_GPIO_WritePin(GPIOA, RED_LED_Pin, GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin(GPIOA, YELLOW_LED_Pin|GREEN_LED_Pin, GPIO_PIN_SET);
+		  setTimer(0,500);
+		  	  		  setTimer(1,700);
+		  	  		setTimer(2,1000);
 	  }
+	  if (isTimerExpired(0)){
+
+	  		  HAL_GPIO_WritePin(GPIOA, YELLOW_LED_Pin, GPIO_PIN_RESET);
+	  		  HAL_GPIO_WritePin(GPIOA, RED_LED_Pin|GREEN_LED_Pin, GPIO_PIN_SET);
+	  	  }
+	  if (isTimerExpired(1)){
+
+	  		  HAL_GPIO_WritePin(GPIOA, GREEN_LED_Pin, GPIO_PIN_RESET);
+	  		  HAL_GPIO_WritePin(GPIOA, YELLOW_LED_Pin|RED_LED_Pin, GPIO_PIN_SET);
+
+	  	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

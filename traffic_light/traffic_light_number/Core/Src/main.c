@@ -290,46 +290,59 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(0,100);
-  int counter=0;
+setTimer(0,1);
+setTimer(4,1);
+
+
+  int counter1=0;
+  int counter2=0;
+
   while (1)
   {
     /* USER CODE END WHILE */
+	  /* USER CODE END 3 */
 	  if(isTimerExpired(0))
-		  {setTimer(0,100);
-		  counter++;}
-	  	if (counter<=5){
-	  		display7SEG_0(5-counter);
-	  		display7SEG_1(7-counter);
-	  		HAL_GPIO_WritePin(GPIOA, GREEN_LED1_Pin|RED_LED2_Pin, GPIO_PIN_SET);
-	  		HAL_GPIO_WritePin(GPIOA, YELLOW_LED1_Pin|RED_LED1_Pin|GREEN_LED2_Pin
-	                  |YELLOW_LED2_Pin, GPIO_PIN_RESET);
+	  {
+
+		  setTimer(0,100);
+
+	  	if (isTimerExpired(4)){
+	  	  setTimer(0,100);
+	  	  setTimer(1,500);
+	  	  setTimer(2,700);
+	  	  setTimer(3,1200);
+	  	  setTimer(4,1400);
+	  	  counter1=5;
+	  	  counter2=7;
+
+	  	HAL_GPIO_WritePin(GPIOA, GREEN_LED1_Pin|RED_LED2_Pin, GPIO_PIN_SET);
+	  	HAL_GPIO_WritePin(GPIOA, YELLOW_LED1_Pin|RED_LED1_Pin|GREEN_LED2_Pin
+	              |YELLOW_LED2_Pin, GPIO_PIN_RESET);
 	  	}
-	  	if (counter>5 && counter<=7){
-	  		display7SEG_0(7-counter);
-	  		display7SEG_1(7-counter);
+	  	if (isTimerExpired(1)){
+	  		counter1=2;
 	  		HAL_GPIO_WritePin(GPIOA, YELLOW_LED1_Pin|RED_LED2_Pin, GPIO_PIN_SET);
 	  		HAL_GPIO_WritePin(GPIOA, GREEN_LED1_Pin|RED_LED1_Pin|GREEN_LED2_Pin
-	                  |YELLOW_LED2_Pin, GPIO_PIN_RESET);
+	  			                  |YELLOW_LED2_Pin, GPIO_PIN_RESET);
 	  	}
-	  	if (counter>7 && counter<=12){
-	  		display7SEG_0(14-counter);
-	  		display7SEG_1(12-counter);
+	  	if (isTimerExpired(2)){
+	  		counter1=7;
+	  		counter2=5;
 	  		HAL_GPIO_WritePin(GPIOA, RED_LED1_Pin|GREEN_LED2_Pin, GPIO_PIN_SET);
 	  		HAL_GPIO_WritePin(GPIOA, GREEN_LED1_Pin|RED_LED2_Pin|YELLOW_LED1_Pin
-	                  |YELLOW_LED2_Pin, GPIO_PIN_RESET);
+	  			                  |YELLOW_LED2_Pin, GPIO_PIN_RESET);
 	  	}
-	  	if (counter>12 && counter<=14){
-	  		display7SEG_0(14-counter);
-	  		display7SEG_1(14-counter);
+	  	if (isTimerExpired(3)){
+	  		counter2=2;
+
 	  		HAL_GPIO_WritePin(GPIOA, RED_LED1_Pin|YELLOW_LED2_Pin, GPIO_PIN_SET);
 	  		HAL_GPIO_WritePin(GPIOA, GREEN_LED1_Pin|RED_LED2_Pin|YELLOW_LED1_Pin
 	  	             |GREEN_LED2_Pin, GPIO_PIN_RESET);
 	  	}
-	  	if(counter>=14){
-	  		counter=0;
-	  	}
-    /* USER CODE BEGIN 3 */
+		  display7SEG_0(--counter1); //1
+		  display7SEG_1(--counter2); //2
+
+	}
   }
   /* USER CODE END 3 */
 }
